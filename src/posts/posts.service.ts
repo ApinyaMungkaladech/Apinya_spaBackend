@@ -22,22 +22,21 @@ export class PostsService {
 
   create(user: User, post: IPost): Observable<IPost> {
     post.author = user;
-    console.log(post);
     return this.generateSlug(post.description.slice(0, 10)).pipe(
       switchMap((slug: string) => {
         post.slug = slug;
-        console.log(post);
         return from(this.postRepository.save(post));
       }),
     );
   }
 
-  // create(createPostDto: CreatePostDto) {
-  //   return 'This action adds a new post';
-  // }
-
   findAll() {
-    return `This action returns all posts`;
+    return from(
+      this.postRepository.find({
+        order: { createdAt: 'DESC' },
+        relations: ['author'],
+      }),
+    );
   }
 
   findOne(id: number) {

@@ -7,6 +7,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -18,6 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Observable, of } from 'rxjs';
 import { Photo } from 'src/users/entities/photo.entity';
 import { User } from './entities/user.interface';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 const path = require('path');
 
@@ -43,15 +45,17 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Get('session')
+  getSession(@Request() req) {
+    const userId = req.user.userId;
+    return this.usersService.findProfileById(userId);
   }
 
-  @Get(':id')
-  show(@Param('id') id: string) {
-    return this.usersService.showById(+id);
-  }
+  // @Get(':id')
+  // show(@Param('id') id: string) {
+  //   return this.usersService.showById(+id);
+  // }
 
   @Post('photo/upload')
   @UseInterceptors(FileInterceptor('file', storage))
