@@ -51,6 +51,14 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "UPLOAD IMAGE",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -88,6 +96,25 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UPLOAD IMAGE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{3000}}/users/photo/upload",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"users",
+								"photo",
+								"upload"
+							]
+						}
 					},
 					"response": []
 				}
