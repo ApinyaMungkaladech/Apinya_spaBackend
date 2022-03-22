@@ -4,10 +4,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { PostEntity } from 'src/posts/entities/post.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Entity()
 export class User extends BaseEntity {
@@ -36,6 +39,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   photo: string;
+
+  @OneToMany((type) => PostEntity, (postEntity) => postEntity.author)
+  posts: PostEntity[];
 
   @BeforeInsert()
   async hashPassword() {

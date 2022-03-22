@@ -4,11 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
+import { User as UserEntity } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { PostEntity } from './posts/entities/post.entity';
 
-const entities = [User];
+const entities = [UserEntity, PostEntity];
 
 @Module({
   imports: [

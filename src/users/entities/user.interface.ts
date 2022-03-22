@@ -1,3 +1,5 @@
+import { Post } from 'src/posts/entities/post.interface';
+
 export interface User {
   id?: number;
   firstName?: string;
@@ -7,4 +9,5 @@ export interface User {
   createdAt?: Date;
   updatedAt?: Date;
   image?: string;
+  posts?: Post[];
 }
