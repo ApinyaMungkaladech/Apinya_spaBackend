@@ -11,7 +11,7 @@ import {
 @Entity('posts')
 export class PostEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({ default: '' })
   description: string;
@@ -33,6 +33,8 @@ export class PostEntity {
   @Column({ nullable: true })
   photo: string;
 
-  @ManyToOne((type) => UserEntity, (user) => user.posts)
+  @ManyToOne((type) => UserEntity, (user) => user.posts, {
+    cascade: true,
+  })
   author: UserEntity;
 }

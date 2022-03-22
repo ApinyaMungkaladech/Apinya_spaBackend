@@ -15,7 +15,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  userId: string;
 
   @Column({ unique: true })
   email: string;

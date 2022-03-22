@@ -24,6 +24,10 @@ export class UsersService {
     return await User.findOne(id);
   }
 
+  async findAll(): Promise<User[]> {
+    return await User.find();
+  }
+
   async findByEmail(email: string) {
     return await User.findOne({
       where: {

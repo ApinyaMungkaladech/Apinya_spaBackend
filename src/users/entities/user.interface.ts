@@ -1,7 +1,7 @@
 import { Post } from 'src/posts/entities/post.interface';
 
 export interface User {
-  id?: number;
+  userId?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
