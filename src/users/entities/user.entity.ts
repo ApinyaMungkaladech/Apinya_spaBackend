@@ -34,6 +34,9 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ nullable: true })
+  photo: string;
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 8);
