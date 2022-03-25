@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
 import { PostEntity } from 'src/posts/entities/post.entity';
 
 @Entity()
@@ -25,7 +24,7 @@ export class User extends BaseEntity {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Column()
@@ -42,12 +41,12 @@ export class User extends BaseEntity {
   @OneToMany((type) => PostEntity, (postEntity) => postEntity.author)
   posts: PostEntity[];
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 8);
-  }
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 8);
+  // }
 
-  async validatePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
-  }
+  // async validatePassword(password: string): Promise<boolean> {
+  //   return bcrypt.compare(password, this.password);
+  // }
 }

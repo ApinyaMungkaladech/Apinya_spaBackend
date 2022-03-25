@@ -39,9 +39,12 @@ export class PostsService {
     );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  findOne(id: string): Observable<IPost> {
+    return from(this.postRepository.findOne({ id }, { relations: ['author'] }));
   }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} post`;
+  // }
 
   update(id: number, updatePostDto: UpdatePostDto) {
     return `This action updates a #${id} post`;

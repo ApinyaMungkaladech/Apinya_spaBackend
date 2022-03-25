@@ -7,6 +7,7 @@ import {
   UploadedFile,
   Request,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -15,7 +16,7 @@ import { diskStorage } from 'multer';
 
 import { v4 as uuidv4 } from 'uuid';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Photo } from 'src/users/entities/photo.entity';
 import { User } from './entities/user.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -51,6 +52,10 @@ export class UsersController {
     return this.usersService.findProfileById(userId);
   }
 
+  @Get(':id')
+  getUserPosts(@Param('id') id: string) {
+    return this.usersService.findUserPosts(id);
+  }
   // @Get(':id')
   // show(@Param('id') id: string) {
   //   return this.usersService.showById(+id);
@@ -60,5 +65,14 @@ export class UsersController {
   @UseInterceptors(FileInterceptor('file', storage))
   uploadFile(@UploadedFile() file, @Request() req): Observable<Photo> {
     return of(file);
+  }
+
+  @Post('login')
+  login(@Body() user: User): Observable<Object> {
+    return this.usersService.login(user).pipe(
+      map((jwt: string) => {
+        return { access_token: jwt };
+      }),
+    );
   }
 }

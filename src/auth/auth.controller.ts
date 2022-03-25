@@ -8,10 +8,10 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  async login(@Body() authLoginDto: AuthLoginDto) {
-    return this.authService.login(authLoginDto);
-  }
+  // @Post()
+  // async login(@Body() authLoginDto: AuthLoginDto) {
+  //   return this.authService.login(authLoginDto);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
