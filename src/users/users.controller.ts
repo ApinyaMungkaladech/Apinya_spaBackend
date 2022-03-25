@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Param,
   UseInterceptors,
   UploadedFile,
   Request,
@@ -25,7 +24,7 @@ const path = require('path');
 
 export const storage = {
   storage: diskStorage({
-    destination: './uploads/users-image',
+    destination: './dist/uploads/users-image',
     filename: (req, file, cb) => {
       const filename: string =
         path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();

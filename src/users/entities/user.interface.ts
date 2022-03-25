@@ -11,3 +11,11 @@ export interface User {
   image?: string;
   posts?: Post[];
 }
+
+export interface SafeUser {
+  userId?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  image?: string;
+}

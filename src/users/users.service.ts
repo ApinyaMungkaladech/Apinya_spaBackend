@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Injectable,
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { User as UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -40,8 +44,15 @@ export class UsersService {
     );
   }
 
-  async findAll(): Promise<User[]> {
-    return await UserEntity.find();
+  findAll(): Observable<User[]> {
+    return from(this.userRepository.find()).pipe(
+      map((users: User[]) =>
+        users.map((user: User) => {
+          const { password, ...result } = user;
+          return result;
+        }),
+      ),
+    );
   }
 
   async findByEmail(email: string) {

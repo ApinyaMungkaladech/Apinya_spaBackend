@@ -1,6 +1,6 @@
-import { Injectable, Post, UseGuards } from '@nestjs/common';
+import { Injectable, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, Observable, of, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from 'src/users/entities/user.interface';
 import { UsersService } from 'src/users/users.service';
@@ -30,7 +30,7 @@ export class PostsService {
     );
   }
 
-  findAll() {
+  findAll(): Observable<IPost[]> {
     return from(
       this.postRepository.find({
         order: { createdAt: 'DESC' },

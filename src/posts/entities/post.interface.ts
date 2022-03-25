@@ -1,4 +1,4 @@
-import { User } from 'src/users/entities/user.interface';
+import { SafeUser } from 'src/users/entities/user.interface';
 
 export interface Post {
   id?: string;
@@ -8,5 +8,5 @@ export interface Post {
   updatedAt?: Date;
   likes?: number;
   photo?: string;
-  author?: User;
+  author?: SafeUser;
 }

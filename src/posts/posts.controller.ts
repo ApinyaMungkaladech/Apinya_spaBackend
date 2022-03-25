@@ -27,7 +27,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 export const storage = {
   storage: diskStorage({
-    destination: './uploads/posts-image',
+    destination: 'dist/uploads/posts-image',
     filename: (req, file, cb) => {
       const filename: string =
         path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();

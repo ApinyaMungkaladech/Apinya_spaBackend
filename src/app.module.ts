@@ -8,13 +8,20 @@ import { User as UserEntity } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { PostEntity } from './posts/entities/post.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import config from './config/config';
+import { join } from 'path';
 
 const entities = [UserEntity, PostEntity];
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'dist'),
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [config],
     }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,

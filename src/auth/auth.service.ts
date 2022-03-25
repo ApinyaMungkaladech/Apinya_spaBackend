@@ -28,10 +28,12 @@ export class AuthService {
     const { email, password } = authLoginDto;
 
     const user = await this.usersService.findByEmail(email);
+
     if (!(await user?.validatePassword(password))) {
       throw new UnauthorizedException();
     }
 
+    console.log('user at login : ', user);
     return user;
   }
 }
